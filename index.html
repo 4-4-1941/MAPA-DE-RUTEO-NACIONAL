@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ruteo Epidemiológico - INEI</title>
+    <!-- Librerías Leaflet y Routing Machine -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- Contenedor del Mapa -->
+    <div id="map"></div>
 
+    <!-- Botón Centrar GPS (Flotante) -->
+    <button id="btn-gps" class="floating-btn gps-btn" title="Centrar en mi ubicación">📍</button>
+    
+    <!-- Botón Exportar (Flotante izquierda) -->
+    <button id="btn-export" class="floating-btn export-btn" title="Exportar datos a GeoJSON">📤</button>
+
+    <!-- Panel inferior deslizable (Formulario) -->
+    <div id="form-panel" class="form-panel">
+        <div class="panel-handle"></div>
+        <div class="panel-header">
+            <h3 id="panel-title">Registro de Muestra</h3>
+            <span id="panel-coord">Sin ubicación</span>
+        </div>
+        <div id="form-container">
+            <!-- Los campos se generan dinámicamente desde config.json -->
+        </div>
+        <button id="btn-save" class="btn-save">💾 Guardar Muestra</button>
+        <div id="save-message" class="save-message"></div>
+    </div>
+
+    <!-- Scripts internos -->
+    <script src="js/config.js"></script> <!-- Primero la config -->
+    <script src="js/app.js"></script>
+    <script src="js/forms.js"></script>
+    <script src="js/routing.js"></script>
+    <script src="js/export.js"></script>
+    
+    <!-- Datos de croquis (ejemplo) -->
+    <script>
+        // Simulación de carga de croquis. Reemplazar con su archivo real.
+        window.croquisData = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": { "nombre": "Manzana A - Lote 1", "id": "MZ001" },
+                    "geometry": { "type": "Point", "coordinates": [-77.0425, -12.0465] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "nombre": "Manzana B - Lote 5", "id": "MZ002" },
+                    "geometry": { "type": "Point", "coordinates": [-77.0450, -12.0490] }
+                },
+                {
+                    "type": "Feature",
+                    "properties": { "nombre": "Manzana C - Esquina", "id": "MZ003" },
+                    "geometry": { "type": "Point", "coordinates": [-77.0395, -12.0440] }
+                }
+            ]
+        };
+        // Inicializar la app
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof App !== 'undefined') {
+                App.init();
+            } else {
+                console.error("App no definida, revisar carga de scripts.");
+            }
+        });
+    </script>
+</body>
+      </html>
